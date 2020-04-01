@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
 });
 
 connection.connect();
-
+//Get movies from db
 function getMovies(callback) {    
   connection.query("SELECT * FROM movie_db.publication",
     function (err, rows) {
@@ -21,7 +21,7 @@ function getMovies(callback) {
     }
   );
 }
-
+//Get reviewers from db
 function getReviewers(callback) {    
   connection.query("SELECT * FROM movie_db.reviewer",
     function (err, rows) {
@@ -29,7 +29,7 @@ function getReviewers(callback) {
     }
   );
 }
-
+//Get publication from db
 function getPublication(callback) {    
   connection.query("SELECT * FROM movie_db.publication",
     function (err, rows) {
@@ -37,7 +37,7 @@ function getPublication(callback) {
     }
   );
 }
-//Testing endpoint
+//Enpoint
 app.get('/', function(req, res, next) {
     //now you can call the get-driver, passing a callback function
    getMovies(function (err, moviesResult){ 
@@ -46,7 +46,7 @@ app.get('/', function(req, res, next) {
 
    });
 });
-
+//Endpoint reviewers
 app.get('/reviewers', function(req, res, next) {
   //now you can call the get-driver, passing a callback function
   getReviewers(function (err, moviesResult){ 
@@ -55,7 +55,7 @@ app.get('/reviewers', function(req, res, next) {
 
  });
 });
-
+//Endpoint Publications
 app.get('/publications', function(req, res, next) {
   //now you can call the get-driver, passing a callback function
   getPublication(function (err, moviesResult){ 
@@ -64,7 +64,6 @@ app.get('/publications', function(req, res, next) {
 
  });
 });
-
 // Implement the movies API endpoint
 app.get('/movies', function(req, res){
   var movies = [
@@ -79,7 +78,6 @@ app.get('/movies', function(req, res){
 
   res.json(movies);
 })
-
 // Implement the pending reviews API endpoint
 app.get('/pending', function(req, res){
   var pending = [
