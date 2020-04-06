@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
 connection.connect();
 //Get movies from db
 function getMovies(callback) {    
-  connection.query("SELECT title, release, score, reviewer, publication FROM movie_db.publication WHERE pending = false",
+  connection.query("SELECT title, `release`, score, reviewer, publication FROM movie_db.moviereview WHERE pending = false",
     function (err, rows) {
       callback(err, rows); 
     }
@@ -23,7 +23,7 @@ function getMovies(callback) {
 }
 //Get pending movies from db
 function getPendingMovies(callback) {    
-  connection.query("SELECT title, release, score, reviewer, publication FROM movie_db.publication WHERE pending = true",
+  connection.query("SELECT title, `release`, score, reviewer, publication FROM movie_db.moviereview WHERE pending = true",
     function (err, rows) {
       callback(err, rows); 
     }
@@ -74,6 +74,7 @@ app.get('/publications', function(req, res, next) {
 });
 // Implement the movies API endpoint
 app.get('/movies', function(req, res){
+  console.log("Access to movie endpoitn");
   //now you can call the get-driver, passing a callback function
   getMovies(function (err, moviesResult){ 
     // you might want to do something is err is not null...      
