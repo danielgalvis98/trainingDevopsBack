@@ -1,7 +1,9 @@
-CREATE DATABASE movie_db;
 CREATE TABLE movie_db.publication (name VARCHAR(255) PRIMARY KEY, avatar VARCHAR(21));
 CREATE TABLE movie_db.reviewer (name VARCHAR(255) PRIMARY KEY, avatar VARCHAR(255), publication VARCHAR(255), FOREIGN KEY (publication) REFERENCES publication(name) ON DELETE CASCADE);
 CREATE TABLE movie_db.moviereview (title VARCHAR(255) PRIMARY KEY, `release` VARCHAR(255), score INTEGER, reviewer VARCHAR(255), publication VARCHAR(255), pending BOOLEAN,FOREIGN KEY (reviewer) REFERENCES reviewer(name) ON DELETE CASCADE);
+
+CREATE USER 'training'@'%' IDENTIFIED BY 'access123';
+GRANT SELECT ON movie_db.* TO 'training'@'%';
 
 INSERT INTO movie_db.publication (name, avatar) VALUES ('The Daily Reviewer', 'glyphicon-eye-open');
 INSERT INTO movie_db.publication (name, avatar) VALUES ('International Movie Critic', 'glyphicon-fire');
