@@ -94,5 +94,5 @@ app.get('/pending', function(req, res){
 console.log("server listening through port: "+process.env.PORT);
 // Launch our API Server and have it listen on port 3000.
 app.listen(process.env.PORT);
-console.log("App deployed 2");
+console.log("App deployed 3");
 module.exports = app;
