@@ -47,6 +47,7 @@ function getPublication(callback) {
 }
 //Enpoint
 app.get('/', function(req, res, next) {
+  console.log("Access to home endpoitn");
     //now you can call the get-driver, passing a callback function
    getMovies(function (err, moviesResult){ 
       // you might want to do something is err is not null...      
@@ -56,6 +57,7 @@ app.get('/', function(req, res, next) {
 });
 //Endpoint reviewers
 app.get('/reviewers', function(req, res, next) {
+  console.log("Access to reviewers endpoitn");
   //now you can call the get-driver, passing a callback function
   getReviewers(function (err, moviesResult){ 
     // you might want to do something is err is not null...      
@@ -65,6 +67,7 @@ app.get('/reviewers', function(req, res, next) {
 });
 //Endpoint Publications
 app.get('/publications', function(req, res, next) {
+  console.log("Access to publications endpoitn");
   //now you can call the get-driver, passing a callback function
   getPublication(function (err, moviesResult){ 
     // you might want to do something is err is not null...      
@@ -84,6 +87,7 @@ app.get('/movies', function(req, res){
 })
 // Implement the pending reviews API endpoint
 app.get('/pending', function(req, res){
+  console.log("Access to pending endpoitn");
   //now you can call the get-driver, passing a callback function
   getPendingMovies(function (err, moviesResult){ 
     // you might want to do something is err is not null...      
