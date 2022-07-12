@@ -15,7 +15,7 @@ node {
 
   stage('Install'){
     timeout(10){
-      sh 'Installing Dependencies...'
+      echo 'Installing Dependencies...'
       docker.image(nodeBaseImage).inside() {
         sh 'npm ci'
       }
