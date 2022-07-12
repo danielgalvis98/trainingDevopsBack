@@ -34,13 +34,7 @@ node {
     }
   }
 
-  stage('Clean Workspace') {
-    timeout(3) {
-      echo 'Cleaning workspace...'
-      cleanWs()
-    }
-
-    stage('Build and Publish') {
+  stage('Build and Publish') {
       timeout(10) {
         echo 'Building docker image...'
         def registry = 'registry:5000'
@@ -48,6 +42,12 @@ node {
         def branchName = env.CHANGE_BRANCH
         docker.build("${registry}/${serviceName}:${branchName}")
       }
+    }
+
+  stage('Clean Workspace') {
+    timeout(3) {
+      echo 'Cleaning workspace...'
+      cleanWs()
     }
   }
 }
