@@ -30,11 +30,12 @@ node {
       }
     }
 
-    stage('Clean Workspace'){
-      timeout(3){
-        echo 'Cleaning workspace...'
-        cleanWs()
-      }
+  }
+
+  stage('Clean Workspace'){
+    timeout(3){
+      echo 'Cleaning workspace...'
+      cleanWs()
     }
   }
 }
