@@ -19,7 +19,7 @@ node {
   stage('Install') {
     timeout(10) {
       echo 'Installing Dependencies...'
-      docker.image(nodeBaseImage).inside() {
+      docker.image(nodeBaseImage).inside {
         sh 'npm ci'
       }
     }
@@ -28,7 +28,7 @@ node {
   stage('Tests') {
     timeout(10) {
       echo 'Running tests...'
-      docker.image(nodeBaseImage).inside() {
+      docker.image(nodeBaseImage).inside {
         sh 'npm run test'
       }
     }
