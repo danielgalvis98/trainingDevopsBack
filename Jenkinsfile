@@ -41,11 +41,11 @@ node {
         def serviceName = 'review-api'
         def branchName = env.CHANGE_BRANCH ?: env.BRANCH_NAME
 
-        docker.build("${registry}/${serviceName}:${branchName}-${BUILD_ID}")
-        docker.push()
+        def pushImage = docker.build("${registry}/${serviceName}:${branchName}-${BUILD_ID}")
+        pushImage.push()
 
         if (branchName == 'master') {
-          docker.push('latest')
+          pushImage.push('latest')
         }
       }
     }
