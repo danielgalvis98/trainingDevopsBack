@@ -39,8 +39,14 @@ node {
         echo 'Building docker image...'
         def registry = 'registry:5000'
         def serviceName = 'review-api'
-        def branchName = env.CHANGE_BRANCH
-        docker.build("${registry}/${serviceName}:${branchName}")
+        def branchName = env.CHANGE_BRANCH ?: env.BRANCH_NAME
+
+        def pushImage = docker.build("${registry}/${serviceName}:${branchName}-${BUILD_ID}")
+        pushImage.push()
+
+        if (branchName == 'master') {
+          pushImage.push('latest')
+        }
       }
     }
 
