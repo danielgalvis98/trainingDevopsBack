@@ -2,7 +2,7 @@ name: 'review-app'
 
 services: 
   review-api:
-    image: localhost:5000/review-api
+    image: registry:5000/review-api
     container_name: review-api
     restart: always
     env_file: api.env
