@@ -1,23 +1,16 @@
 name: 'review-app'
 
-services:
-  review-ui:
-    image: registry:5000/review-ui
-    container_name: review-ui
-    restart: always
-    env_file: ui.env
-    ports:
-      - "8081:8080"
-    depends_on:
-      - review-api
-  
+services: 
   review-api:
-    image: registry:5000/review-api
+    image: localhost:5000/review-api
     container_name: review-api
     restart: always
     env_file: api.env
     depends_on:
       - mariadb
+    networks:
+      - review-app-network
+      - review-back-network
 
   mariadb:
     container_name: mariadb
@@ -29,3 +22,10 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_USER=root
+    networks:
+      - review-back-network
+
+networks:
+  review-app-network:
+    external: true
+  review-back-network:
