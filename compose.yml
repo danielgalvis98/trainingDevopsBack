@@ -1,0 +1,31 @@
+name: 'review-app'
+
+services:
+  review-ui:
+    image: registry:5000/review-ui
+    container_name: review-ui
+    restart: always
+    env_file: ui.env
+    ports:
+      - "8081:8080"
+    depends_on:
+      - review-api
+  
+  review-api:
+    image: registry:5000/review-api
+    container_name: review-api
+    restart: always
+    env_file: api.env
+    depends_on:
+      - mariadb
+
+  mariadb:
+    container_name: mariadb
+    image: mariadb:10.3
+    restart: always
+    command: --lower_case_table_names=1
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=root
