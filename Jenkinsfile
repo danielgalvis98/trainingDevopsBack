@@ -52,7 +52,7 @@ node {
 
     stage('Deploy compose to dind') {
       timeout(10){
-        sh 'docker compose up -d'
+        sh 'docker-compose up -d'
       }
     }
 
