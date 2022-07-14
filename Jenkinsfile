@@ -52,7 +52,12 @@ node {
 
     stage('Deploy compose to dind') {
       timeout(10){
-        sh 'docker compose up -d'
+        withCredentials([
+          string(credentialsId: 'dbUser', variable:'DB_USER'),
+          string(credentialsId: 'dbPassword', variable:'DB_PASS')])
+          {
+            sh 'docker compose up -d'
+          }
       }
     }
 
