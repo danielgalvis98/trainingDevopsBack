@@ -38,9 +38,7 @@ node {
   stage('SonarQube Analysis') {
     def scannerHome = tool 'SonarScanner'
     withSonarQubeEnv() {
-      docker.image(nodeBaseImage).inside("-v ${scannerHome}:${scannerHome}") {
-        sh "${scannerHome}/bin/sonar-scanner"
-      }
+      sh "${scannerHome}/bin/sonar-scanner"
     }
   }
 
@@ -61,7 +59,7 @@ node {
 
     stage('Deploy compose to dind') {
       timeout(10){
-        if (branchName == 'master'){
+        if (branchName == 'master') {
           withCredentials([
             string(credentialsId: 'dbUser', variable:'DB_USER'),
             string(credentialsId: 'dbPassword', variable:'DB_PASS')])
