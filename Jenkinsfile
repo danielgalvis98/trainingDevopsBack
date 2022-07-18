@@ -36,10 +36,10 @@ node {
   }
 
   stage('SonarQube Analysis') {
-    def scannerHome = tool 'SonarScanner';
+    def scannerHome = tool 'SonarScanner'
     withSonarQubeEnv() {
-      docker.image('sonarsource/sonar-scanner-cli:4.7').inside {
-        sh "sonar-scanner"
+      docker.image(nodeBaseImage).inside("-v ${scannerHome}:${scannerHome}") {
+        sh "${scannerHome}/bin/sonar-scanner"
       }
     }
   }
