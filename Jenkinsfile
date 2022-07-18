@@ -38,7 +38,7 @@ node {
   stage('SonarQube Analysis') {
     def scannerHome = tool 'SonarScanner';
     withSonarQubeEnv() {
-      docker.image(nodeBaseImage).inside {
+      docker.image(nodeBaseImage).withRun {
         sh "${scannerHome}/bin/sonar-scanner"
       }
     }
