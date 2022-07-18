@@ -35,6 +35,22 @@ node {
     }
   }
 
+  stage('SonarQube Analysis') {
+    def scannerHome = tool 'SonarScanner'
+    withSonarQubeEnv() {
+      sh "${scannerHome}/bin/sonar-scanner"
+    }
+  }
+
+  stage('Verify Quality Gate') {
+    timeout(3) {
+      def qg = waitForQualityGate()
+      if (qg.status != 'OK') {
+        error "Pipeline aborted due to quality gate failure: ${qg.status}"
+      }
+    }
+  }
+
   stage('Build and Publish') {
       timeout(10) {
         echo 'Building docker image...'
@@ -52,7 +68,7 @@ node {
 
     stage('Deploy compose to dind') {
       timeout(10){
-        if (branchName == 'master'){
+        if (branchName == 'master') {
           withCredentials([
             string(credentialsId: 'dbUser', variable:'DB_USER'),
             string(credentialsId: 'dbPassword', variable:'DB_PASS')])
