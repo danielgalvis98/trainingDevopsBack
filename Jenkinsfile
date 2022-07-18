@@ -35,6 +35,13 @@ node {
     }
   }
 
+  stage('SonarQube Analysis') {
+    def scannerHome = tool 'SonarScanner';
+    withSonarQubeEnv() {
+      sh "${scannerHome}/bin/sonar-scanner"
+    }
+  }
+
   stage('Build and Publish') {
       timeout(10) {
         echo 'Building docker image...'
